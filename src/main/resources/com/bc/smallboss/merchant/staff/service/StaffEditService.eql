@@ -1,0 +1,39 @@
+-- [isStaffExist]
+SELECT COUNT(1)
+FROM STAFF
+WHERE MOBILE = ##;
+
+-- [insertUser]
+INSERT USER
+(USER_ID,       PASSWD,         MOBILE,       NAME,
+ SEX,           TYPE)
+VALUES
+(#userId#,      #passwd#,       #mobile#,     #name#,
+ #sex#,         #type#);
+
+-- [insertStaff]
+INSERT STAFF
+(STAFF_ID,      USER_ID,        NAME,         SEX,    MOBILE,
+PHOTO,          BRIEF,       TAG1,         TAG2,       Tag3)
+VALUES
+(#staffId#,     #userId#,     #name#,    #sex#,  #mobile#,
+null,           #desc#,       #tag1#,       #tag2#,     #tag3#);
+
+-- [updateUser]
+UPDATE USER
+SET MOBILE = #mobile#
+,   NAME  = #name#
+,   SEX   = #sex#
+WHERE
+MOBILE  = #mobile#;
+
+-- [updateStaff]
+UPDATE STAFF
+SET NAME  = #name#
+,   SEX   = #sex#
+,   BRIEF =  #desc#
+,   TAG1  = #tag1#
+,   TAG2  = #tag2#
+,   TAG3  = #tag3#
+WHERE
+MOBILE  = #mobile#;

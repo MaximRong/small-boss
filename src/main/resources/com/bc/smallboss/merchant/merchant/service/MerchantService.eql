@@ -1,0 +1,18 @@
+-- [queryMerchant]
+SELECT MERCHANT_NAME "name"
+,MOBILE "mobile"
+,ADDRESS "address"
+,TAG1 "tag1"
+,TAG2 "tag2"
+,TAG3 "tag3"
+FROM MERCHANT
+
+-- [merchantSave]
+UPDATE MERCHANT
+SET
+MERCHANT_NAME = #name#,
+MOBILE =  #mobile#,
+ADDRESS = #address#,
+TAG1 = #tag1#,
+TAG2 = #tag2#,
+TAG3 = #tag3#;

@@ -1,0 +1,41 @@
+-- [queryMerchant]
+SELECT MERCHANT_ID
+, MERCHANT_NAME "name"
+, MOBILE
+, ADDRESS
+, TAG1
+, TAG2
+, TAG3
+FROM MERCHANT;
+
+-- [queryStaffs]
+SELECT STAFF_ID
+, USER_ID
+, NAME
+, SEX
+, PHOTO
+, TAG1
+, TAG2
+, TAG3
+, MOBILE
+, BRIEF
+FROM STAFF
+
+-- [queryBookingTimeMillis]
+SELECT s.TIME_MILLIS
+FROM SUBSCRIBE s
+WHERE
+s.STAFF_ID = #staffId#
+AND s.SUBSCRIBE_TIME > now()
+AND s.STATE = '1';
+
+-- [queryBookingTimeRange]
+SELECT MAX(bookingStartTime) as "bookingStartTime", MAX(bookingEndTime) as "bookingEndTime"
+FROM(
+SELECT 1 as "n_index",
+case when n.CONFIG_KEY = 'BOOKING_START_TIME' then n.CONFIG_VALUE end as "bookingStartTime",
+case when n.CONFIG_KEY = 'BOOKING_END_TIME' then n.CONFIG_VALUE end as "bookingEndTime"
+FROM MERCHANT_CONFIG n
+WHERE n.CONFIG_KEY in ('BOOKING_START_TIME', 'BOOKING_END_TIME')
+) as i
+group by n_index;

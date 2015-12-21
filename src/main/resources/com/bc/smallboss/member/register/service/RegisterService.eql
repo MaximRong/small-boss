@@ -1,0 +1,16 @@
+-- [insertUser]
+INSERT USER
+(USER_ID,       PASSWD,         MOBILE,       NAME,
+ SEX,           TYPE)
+VALUES
+(#userId#,      #passwd#,       #mobile#,     #name#,
+ #sex#,         #type#);
+
+
+-- [insertMember]
+INSERT INTO MEMBER
+(MEMBER_ID,       MOBILE,       NAME,       SEX,
+ VERIFY,          USER_ID)
+VALUES
+(#memberId#,      #mobile#,     #name#,     #sex#,
+ '0',             #userId#);

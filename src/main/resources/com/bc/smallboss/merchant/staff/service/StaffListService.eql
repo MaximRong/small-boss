@@ -1,0 +1,12 @@
+-- [queryStaffList]
+SELECT STAFF_ID
+, USER_ID
+, NAME
+, SEX
+, PHOTO
+, TAG1
+, TAG2
+, TAG3
+, MOBILE
+, BRIEF
+FROM STAFF
