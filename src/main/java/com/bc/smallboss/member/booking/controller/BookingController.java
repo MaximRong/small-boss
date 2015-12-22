@@ -6,9 +6,12 @@ import com.bc.smallboss.member.booking.service.BookingService;
 import com.bc.smallboss.merchant.merchant.bean.Merchant;
 import com.bc.smallboss.merchant.staff.bean.Staff;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -20,16 +23,39 @@ public class BookingController {
     private BookingService service;
 
     @RequestMapping(value = "/show")
-    public ModelAndView merchantEdit() {
+    public ModelAndView bookingShow() {
+        return getModelAndView(null);
+    }
+
+    @RequestMapping(value = "/show/{staffId}")
+    public ModelAndView bookingShow(@PathVariable String staffId) {
+        return getModelAndView(staffId);
+    }
+
+    @RequestMapping(value = "/booking")
+    public void bookingSave(@RequestParam(value = "staffId") String staffId,
+                                    @RequestParam(value = "millis") String millis) {
+        service.bookingSave(staffId, millis);
+    }
+
+    private ModelAndView getModelAndView(String staffId) {
         ModelAndView mav = new ModelAndView();
         Merchant merchant = service.queryMerchant();
         List<Staff> staffs = service.queryStaffs();
-        List<BookingDate> dates = service.createBookingDates(CollectionUtils.isEmpty(staffs) ? "emptyStaffId" : (staffs.get(0).getStaffId() + ""));
+        List<BookingDate> dates = service.createBookingDates(getStaffIdFromUrlOrDb(staffId, staffs));
         mav.addObject("merchant", merchant);
         mav.addObject("staffs", staffs);
         mav.addObject("dates", dates);
 
         mav.setViewName("member/booking");
         return mav;
+    }
+
+    private String getStaffIdFromUrlOrDb(String staffId, List<Staff> staffs) {
+        return StringUtils.isEmpty(staffId) ? getFirstStaffIdOrEmpty(staffs) : staffId;
+    }
+
+    private String getFirstStaffIdOrEmpty(List<Staff> staffs) {
+        return CollectionUtils.isEmpty(staffs) ? "emptyStaffId" : (staffs.get(0).getStaffId() + "");
     }
 }

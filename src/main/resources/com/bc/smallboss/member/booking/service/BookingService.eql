@@ -39,3 +39,33 @@ FROM MERCHANT_CONFIG n
 WHERE n.CONFIG_KEY in ('BOOKING_START_TIME', 'BOOKING_END_TIME')
 ) as i
 group by n_index;
+
+-- [queryMemberByUserId]
+SELECT MEMBER_ID
+, USER_ID
+, MOBILE
+, NAME
+, SEX
+FROM MEMBER
+WHERE USER_ID = ##;
+
+-- [queryStaffByStaffId]
+SELECT STAFF_ID
+, USER_ID
+, MOBILE
+, NAME
+, SEX
+FROM STAFF
+WHERE STAFF_ID = ##;
+
+-- [insertSubscribe]
+INSERT SUBSCRIBE
+(SUBSCRIBE_ID,        SUBSCRIBE_TIME,       STAFF_ID,
+ STAFF_NAME,          STAFF_MOBILE,         STATE,
+ MEMBER_ID,           MEMBER_NAME,          MEMBER_MOBILE,
+ TIME_MILLIS,         UPDATE_TIME)
+VALUES
+(#subscribeId#,       #subscribeTime#,      #staffId#,
+ #staffName#,         #staffMobile#,        '1',
+ #memberId#,          #memberName#,         #memberMobile#,
+ #millis#,            now());

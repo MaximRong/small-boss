@@ -1,13 +1,18 @@
 package com.bc.smallboss.member.booking.service;
 
+import com.bc.smallboss.base.utils.OAuthInfo;
+import com.bc.smallboss.common.bean.User;
 import com.bc.smallboss.member.booking.bean.BookingDate;
 import com.bc.smallboss.member.booking.bean.BookingTime;
+import com.bc.smallboss.member.booking.bean.Subscribe;
+import com.bc.smallboss.member.register.bean.Member;
 import com.bc.smallboss.merchant.merchant.bean.Merchant;
 import com.bc.smallboss.merchant.staff.bean.Staff;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections.MapUtils;
 import org.joda.time.DateTime;
 import org.n3r.eql.Eql;
+import org.n3r.idworker.Id;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +20,7 @@ import java.util.Map;
 
 @Service
 public class BookingService {
+
     public Merchant queryMerchant() {
         return new Eql().selectFirst("queryMerchant").returnType(Merchant.class).execute();
     }
@@ -29,6 +35,26 @@ public class BookingService {
         int bookingStartTime = Integer.valueOf(MapUtils.getString(bookingTimeRange, "bookingStartTime"));
         int bookingEndTime = Integer.valueOf(MapUtils.getString(bookingTimeRange, "bookingEndTime"));
         return createBookingDates(bookingTimeMillis, bookingStartTime, bookingEndTime);
+    }
+
+    public void bookingSave(String staffId, String millis) {
+        User user = OAuthInfo.get();
+        Member member = new Eql().selectFirst("queryMemberByUserId").params(user.getUserId()).returnType(Member.class).execute();
+        Staff staff = new Eql().selectFirst("queryStaffByStaffId").params(staffId).returnType(Staff.class).execute();
+
+        Subscribe subscribe = new Subscribe();
+        subscribe.setSubscribeId(Id.next());
+        subscribe.setMemberId(member.getMemberId());
+        subscribe.setMemberName(member.getName());
+        subscribe.setMemberMobile(member.getMobile());
+        subscribe.setStaffId(staff.getStaffId());
+        subscribe.setStaffName(staff.getName());
+        subscribe.setStaffMobile(staff.getMobile());
+        DateTime subscribeTime = new DateTime(Long.valueOf(millis)).withMinuteOfHour(0).withSecondOfMinute(0);
+        subscribe.setSubscribeTime(subscribeTime.toDate());
+        subscribe.setMillis(subscribeTime.getMillis());
+
+        new Eql().insert("insertSubscribe").params(subscribe).execute();
     }
 
     private List<BookingDate> createBookingDates(List<Long> bookingTimeMillis, int bookingStartTime, int bookingEndTime) {
@@ -105,4 +131,6 @@ public class BookingService {
 //        System.out.println(string_c);
 
     }
+
+
 }

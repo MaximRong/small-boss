@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <title>会员注册</title>
+    <title>预订</title>
     <#include "../common/header.ftl">
     <link rel="stylesheet" href="${e.res("/biz/member/css/booking.css")}">
     <link rel="stylesheet" href="${e.res("/common/css/slick.css")}">
@@ -31,9 +31,8 @@
     <div class="staff-panel">
         <ul class="staff-choose clearfix">
             <#list staffs as staff>
-            <li <#if staff_index == 0>class="selected"<#else>class="unselected"</#if>>
+            <li <#if staff_index == 0>class="selected"<#else>class="unselected"</#if> data-id="${staff.staffId}">
                 <img src="${e.photo(staff.photo, "meidui.jpg")}"/>
-
                 <div class="staff-name">${staff.name}</div>
             </li>
             </#list>
@@ -42,6 +41,7 @@
             <a href="${e.ctx()}/member/staff/${staffs[0].staffId}"><div class="staff-link">美甲师介绍</div></a>
         </div>
     </div>
+    <!-- replace-start -->
     <div class="booking-panel">
         <div class="booking-dates">
             <div class="slick-container">
@@ -61,7 +61,7 @@
                 <#list date.bookingTimes as time>
                     <div class="booking-time" data-millis="${time.timeMillis}">
                         <div class="<#if time.state == "0">can-booking<#else>canot-booking</#if>">
-                            <a class="start-time">${time.hourOfDay}:00 开始</a>
+                            <a class="start-time" data-time="${time.hourOfDay}">${time.hourOfDay}:00 开始</a>
                             <a class="end-time">${time.endHourOfDay}:00结束</a>
                             <a class="booking-state"><#if time.state == "0">可预约<#else>已被预约</#if></a>
                         </div>
@@ -69,31 +69,50 @@
                 </#list>
             </div>
             </#list>
-            <!--<div class="member-time clearfix">
-                <div class="can-member">
-                    <div class="left-box">
-                        <span>12:00 开始</span><a>13:00结束</a>
-                    </div>
-                </div>
-                <div class="can-member">
-                    <div>
-                        <span>12:30 开始</span><a>13:30结束</a>
-                    </div>
-                </div>
-            </div>-->
         </div>
-    </div>
 
-    <div class="booking-block">
+        <script>
+            $('.slick-container').slick({
+                infinite: false,
+                slidesToShow: 3,
+                slidesToScroll: 3
+            });
+
+            $(".date-circle > .booking-date").click(function () {
+                $(".date-circle > .booking-date").removeClass("selected");
+                var day = $(this).data("day");
+                $(this).addClass("selected")
+                $(".day-list-fake").hide();
+                $("#" + day).show();
+            });
+
+            $(".booking-time").click(function() {
+                var $selectStaff = $(".staff-choose > .selected");
+                var staffId = $selectStaff.data("id");
+                var staffName = $selectStaff.find(".staff-name").text();
+                var millis = $(this).data("millis");
+                var startTime = $(this).find(".start-time").data("time");
+                $("#comfirm-booking-time").data("millis", millis).text(startTime + ":00");
+                $("#comfirm-booking-staff").data("staffId", staffId).text(staffName);
+
+                $(".booking-block").show().addClass("block-fadeUp").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                    $(this).removeClass("block-fadeUp");
+                });
+            });
+        </script>
+    </div>
+    <!-- replace-end -->
+
+    <div class="booking-block" id="booking-block">
         <div class="booking-inner">
             <div class="booking-info">
                 <span class="info">时&nbsp;&nbsp;&nbsp;&nbsp;间:</span>
-                <span class="content">9:00</span>
+                <span class="content" id="comfirm-booking-time"></span>
             </div>
 
             <div class="booking-info">
                 <span class="info">美甲师:</span>
-                <span class="content">莫小北</span>
+                <span class="content" id="comfirm-booking-staff"></span>
             </div>
 
             <div class="booking-info" style="display: none;">
