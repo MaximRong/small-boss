@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="${e.res("/biz/member/css/booking.css")}">
     <link rel="stylesheet" href="${e.res("/common/css/slick.css")}">
     <link rel="stylesheet" href="${e.res("/common/css/slick-theme.css")}">
-    <script src="${e.res("/biz/member/js/MemberRegister.js")}" charset="UTF-8"></script>
     <script src="${e.res("/biz/member/js/Booking.js")}" charset="UTF-8"></script>
     <script src="${e.res("/common/js/slick.js")}" charset="UTF-8"></script>
 </head>

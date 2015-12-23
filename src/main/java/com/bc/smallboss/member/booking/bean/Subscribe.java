@@ -22,6 +22,36 @@ public class Subscribe {
 
     private long millis;
 
+    private String state;
+
+    private boolean isPassed;
+
+    private String stateDesc;
+
+    public boolean getIsPassed() {
+        return isPassed;
+    }
+
+    public void setIsPassed(boolean isPassed) {
+        this.isPassed = isPassed;
+    }
+
+    public String getStateDesc() {
+        return stateDesc;
+    }
+
+    public void setStateDesc(String stateDesc) {
+        this.stateDesc = stateDesc;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     public long getSubscribeId() {
         return subscribeId;
     }

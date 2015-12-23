@@ -80,7 +80,7 @@ public class RClassPath {
         MetadataReaderFactory metaFactory = new CachingMetadataReaderFactory(resolver);
 
         try {
-            Splitter splitter = Splitter.onPattern(",|\\s").omitEmptyStrings().trimResults();
+            Splitter splitter = Splitter.onPattern(",|\\querySubscibes").omitEmptyStrings().trimResults();
             Iterable<String> packages = splitter.split(basePackage);
             List<Resource> resources = new ArrayList<Resource>();
             for (String pack : packages) {

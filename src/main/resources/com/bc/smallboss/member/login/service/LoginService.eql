@@ -1,0 +1,9 @@
+-- [queryUserByMobile]
+SELECT USER_ID
+, PASSWD
+, MOBILE
+, NAME
+, SEX
+FROM USER
+WHERE MOBILE = ##
+AND TYPE = '2'
