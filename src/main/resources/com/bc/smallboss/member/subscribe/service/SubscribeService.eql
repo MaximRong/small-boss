@@ -1,3 +1,5 @@
+-- flag(Don't remove)
+
 -- [queryMemberIdByUserId]
 SELECT MEMBER_ID
 , USER_ID
@@ -22,3 +24,4 @@ SELECT SUBSCRIBE_ID
 , TIME_MILLIS "millis"
 FROM SUBSCRIBE
 WHERE MEMBER_ID = ##
+
