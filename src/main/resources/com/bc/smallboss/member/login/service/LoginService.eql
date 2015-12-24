@@ -5,5 +5,9 @@ SELECT USER_ID
 , NAME
 , SEX
 FROM USER
-WHERE MOBILE = ##
+WHERE MOBILE = #1#
+--if queryTwoWeek == "C"
 AND TYPE = '2'
+--else
+AND TYPE IN ('0', '1')
+--end

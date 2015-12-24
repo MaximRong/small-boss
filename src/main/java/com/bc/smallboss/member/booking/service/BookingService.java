@@ -50,7 +50,7 @@ public class BookingService {
         subscribe.setStaffId(staff.getStaffId());
         subscribe.setStaffName(staff.getName());
         subscribe.setStaffMobile(staff.getMobile());
-        DateTime subscribeTime = new DateTime(Long.valueOf(millis)).withMinuteOfHour(0).withSecondOfMinute(0);
+        DateTime subscribeTime = new DateTime(Long.valueOf(millis));
         subscribe.setSubscribeTime(subscribeTime.toDate());
         subscribe.setMillis(subscribeTime.getMillis());
 
@@ -61,7 +61,7 @@ public class BookingService {
         List<BookingDate> bookingDates = Lists.newArrayList();
         DateTime startTime = DateTime.now();
         for (int i = 0; i < 7; i++) {
-            DateTime bookingDateTime = 0 < i ? startTime.plusDays(i).withHourOfDay(0) : startTime.plusDays(i);
+            DateTime bookingDateTime = 0 < i ? startTime.plusDays(i).withMillisOfDay(0) : startTime.plusDays(i).withMinuteOfHour(0).withSecondOfMinute(0).withMillisOfSecond(0);
             BookingDate bookingDate = new BookingDate(bookingDateTime);
 
             List<BookingTime> dayBookingTimes = createDayBookingTimes(bookingTimeMillis, bookingStartTime, bookingEndTime, bookingDateTime);
@@ -91,9 +91,6 @@ public class BookingService {
     }
 
     public static void main(String[] args) {
-        BookingService bookingService = new BookingService();
-        List<BookingDate> bookingDates = bookingService.createBookingDates(1 + "");
-        System.out.println(bookingDates);
 
         DateTime startTime = DateTime.now();
         System.out.println(startTime.getHourOfDay());
@@ -108,8 +105,8 @@ public class BookingService {
 //        Chronology coptic = CopticChronology.getInstance();
 
 
-        DateTime dateTime = new DateTime(1450583575628l);
-        System.out.println(dateTime.getDayOfWeek());
+        DateTime dateTime = new DateTime(1450972800000l);
+        System.out.println(dateTime);
         System.out.println(dateTime.getHourOfDay() + " " + dateTime.getMinuteOfHour());
 
 /*

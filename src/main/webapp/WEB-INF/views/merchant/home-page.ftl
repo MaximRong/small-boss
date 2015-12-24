@@ -100,126 +100,44 @@
 
     <div class="booking-panel">
         <div class="table-style" style="display: none;">
-            <div class="booking-table">
-                <div class="booking-info clearfix">
-                    <div class="booking-left">
-                        <div class="staff-name">
-                            <span class="info">会员:</span>
-                            <span class="content">巨波</span>
-                            <a class="iconfont" href="tel:18541218792">&#xe604;</a>
-                        </div>
+            <#list subscribes as subscribe>
+                <div class="booking-table">
+                    <div class="booking-info clearfix">
+                        <div class="booking-left">
+                            <div class="staff-name">
+                                <span class="info">会员:</span>
+                                <span class="content">${subscribe.memberName}</span>
+                                <a class="iconfont" href="tel:${subscribe.memberMobile}">&#xe604;</a>
+                            </div>
 
-                        <div class="booking-time">
-                            <span class="info">预约时间:</span>
-                            <span class="content">2015年11月20号 9点</span>
-                        </div>
+                            <div class="booking-time">
+                                <span class="info">预约时间:</span>
+                                <span class="content">${subscribe.subscribeTime?string("yyyy年MM月dd号, HH点")}</span>
+                            </div>
 
-                        <div class="booking-state">
-                            <span class="info">状态:</span>
-                            <span class="content">已预约</span>
+                            <div class="booking-state">
+                                <span class="info">状态:</span>
+                                <span class="content"><#if subscribe.state == "0">已取消<#elseif subscribe.isPassed>已结束<#else>未使用</#if></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="booking-operate">
-                    <span>取消预约</span>
-                </div>
-            </div>
-
-            <div class="booking-table">
-                <div class="booking-info clearfix">
-                    <div class="booking-left">
-                        <div class="staff-name">
-                            <span class="info">会员:</span>
-                            <span class="content">大波</span>
-                            <a class="iconfont" href="tel:18541218792">&#xe604;</a>
-                        </div>
-
-                        <div class="booking-time">
-                            <span class="info">预约时间:</span>
-                            <span class="content">2015年11月20号 9点</span>
-                        </div>
-
-                        <div class="booking-state">
-                            <span class="info">状态:</span>
-                            <span class="content">已结束</span>
-                        </div>
+                    <div class="booking-operate" <#if subscribe.isPassed || subscribe.state == "0">style="display: none;" </#if>>
+                        <span>取消预约</span>
                     </div>
                 </div>
-                <div class="booking-operate">
-                    <span></span>
-                </div>
-            </div>
-
-            <div class="booking-table">
-                <div class="booking-info clearfix">
-                    <div class="booking-left">
-                        <div class="staff-name">
-                            <span class="info">会员:</span>
-                            <span class="content">小波</span>
-                            <a class="iconfont" href="tel:18541218792">&#xe604;</a>
-                        </div>
-
-                        <div class="booking-time">
-                            <span class="info">预约时间:</span>
-                            <span class="content">2015年11月20号 9点</span>
-                        </div>
-
-                        <div class="booking-state">
-                            <span class="info">状态:</span>
-                            <span class="content">已取消</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="booking-operate">
-                    <span></span>
-                </div>
-            </div>
+            </#list>
         </div>
 
         <div class="date-style">
             <div class="booking-dates">
                 <div class="slick-container">
-                    <div class="date-circle">
-                        <div class="booking-date selected" data-index="0">
-                            <span>今天(11月28日)</span>
+                    <#list dates as date>
+                        <div class="date-circle">
+                            <div data-day="${date.dayOfYear}" class="booking-date ${date.tabStyle}" data-index="0">
+                                <span>${date.dateDesc}</span>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="date-circle">
-                        <div class="booking-date" data-index="0">
-                            <span>明天(11月29日)</span>
-                        </div>
-                    </div>
-
-                    <div class="date-circle">
-                        <div class="booking-date" data-index="0">
-                            <span>后天(11月30日)</span>
-                        </div>
-                    </div>
-
-                    <div class="date-circle">
-                        <div class="booking-date" data-index="0">
-                            <span>12月1日(周二)</span>
-                        </div>
-                    </div>
-
-                    <div class="date-circle">
-                        <div class="booking-date" data-index="0">
-                            <span>12月2日(周三)</span>
-                        </div>
-                    </div>
-
-                    <div class="date-circle">
-                        <div class="booking-date" data-index="0">
-                            <span>12月3日(周三)</span>
-                        </div>
-                    </div>
-
-                    <div class="date-circle">
-                        <div class="booking-date" data-index="0">
-                            <span>12月4日(周三)</span>
-                        </div>
-                    </div>
+                    </#list>
                 </div>
             </div>
 

@@ -16,11 +16,9 @@ public class OAuthInfo {
     }
 
     public static User get() {
-        User user = (User) userThreadLocal.get();
-        if(null == user) {
-            user = new User();
-            user.setUserId(131306720934438912l);
-        }
-        return  user;
+//        User user = new User();
+//        user.setUserId(1l);
+//        userThreadLocal.set(user);
+        return  (User) userThreadLocal.get();
     }
 }

@@ -62,7 +62,7 @@
                         <div class="<#if time.state == "0">can-booking<#else>canot-booking</#if>">
                             <a class="start-time" data-time="${time.hourOfDay}">${time.hourOfDay}:00 开始</a>
                             <a class="end-time">${time.endHourOfDay}:00结束</a>
-                            <a class="booking-state"><#if time.state == "0">可预约<#else>已被预约</#if></a>
+                            <a class="booking-state" data-state="${time.state}"><#if time.state == "0">可预约<#else>已被预约</#if></a>
                         </div>
                     </div>
                 </#list>
@@ -86,6 +86,9 @@
             });
 
             $(".booking-time").click(function() {
+                if($(this).find(".booking-state").data("state") == "1") {
+                    return;
+                }
                 var $selectStaff = $(".staff-choose > .selected");
                 var staffId = $selectStaff.data("id");
                 var staffName = $selectStaff.find(".staff-name").text();

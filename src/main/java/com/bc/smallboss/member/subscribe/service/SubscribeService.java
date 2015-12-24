@@ -1,6 +1,6 @@
 package com.bc.smallboss.member.subscribe.service;
 
-import com.bc.smallboss.base.utils.OAuthInfo;
+import com.bc.smallboss.common.bean.User;
 import com.bc.smallboss.member.booking.bean.Subscribe;
 import com.bc.smallboss.member.register.bean.Member;
 import org.joda.time.DateTime;
@@ -12,8 +12,8 @@ import java.util.List;
 @Service
 public class SubscribeService {
 
-    public Member queryMember() {
-        return new Eql().selectFirst("queryMemberIdByUserId").returnType(Member.class).params(OAuthInfo.get().getUserId()).execute();
+    public Member queryMember(User user) {
+        return new Eql().selectFirst("queryMemberIdByUserId").returnType(Member.class).params(user.getUserId()).execute();
     }
 
     public List<Subscribe> querySubscibes(long memberId) {
@@ -22,7 +22,6 @@ public class SubscribeService {
             long millis = subscribe.getMillis();
             DateTime now = DateTime.now();
             boolean after = now.isAfter(millis);
-            System.out.println(after);
             subscribe.setIsPassed(after); // 131306745034909696
         }
 
@@ -32,5 +31,9 @@ public class SubscribeService {
     public static void main(String[] args) {
         DateTime now = DateTime.now();
         System.out.println(now.isAfter(131306745034909696l));
+    }
+
+    public void subscribeCancel(String subscribeId) {
+        new Eql().selectFirst("subscribeCancel").params(subscribeId).execute();
     }
 }

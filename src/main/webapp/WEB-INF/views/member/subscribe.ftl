@@ -52,16 +52,16 @@
 
                             <div class="booking-state">
                                 <span class="info">状态:</span>
-                                <span class="content">${subscribe.state}</span>
+                                <span class="content"><#if subscribe.state == "0">已取消<#elseif subscribe.isPassed>已消费<#else>未使用</#if></span>
                             </div>
                         </div>
-                        <#if !subscribe.isPassed && subscribe.state == "0">
+                        <#if !subscribe.isPassed && subscribe.state == "1">
                             <div class="booking-right">
                                 <p class="call-phone"><a class="iconfont" href="tel:${subscribe.staffMobile}">&#xe604;</a></p>
                             </div>
                         </#if>
                     </div>
-                    <div class="booking-operate">
+                    <div class="booking-operate" data-val="${subscribe.subscribeId}">
                         <span><#if subscribe.isPassed || subscribe.state == "0"><#else>取消预约</#if></span>
                     </div>
                 </div>
