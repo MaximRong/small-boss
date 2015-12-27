@@ -1,0 +1,10 @@
+-- [queryUserByUserId]
+SELECT USER_ID
+, PASSWD
+, OPEN_ID
+, MOBILE
+, NAME
+, SEX
+, TYPE
+FROM USER
+WHERE USER_ID = ##;

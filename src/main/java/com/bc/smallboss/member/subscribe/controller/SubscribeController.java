@@ -37,10 +37,11 @@ public class SubscribeController {
 
     @RequestMapping(value = "/cancel")
     @ResponseBody
-    public Map subscribeCancel(@RequestParam(value = "subscribeId") String subscribeId) {
+    public Map subscribeCancel(@RequestParam(value = "subscribeId") String subscribeId,
+                               HttpSession session) {
         Map ret ;
         try {
-            service.subscribeCancel(subscribeId);
+            service.subscribeCancel(subscribeId, (User) session.getAttribute("user"));
             ret = RMap.asMap("result", "ok");
         } catch (Exception e) {
             ret = RMap.asMap("result", "error");

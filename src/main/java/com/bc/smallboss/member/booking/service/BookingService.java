@@ -1,6 +1,5 @@
 package com.bc.smallboss.member.booking.service;
 
-import com.bc.smallboss.base.utils.OAuthInfo;
 import com.bc.smallboss.common.bean.User;
 import com.bc.smallboss.member.booking.bean.BookingDate;
 import com.bc.smallboss.member.booking.bean.BookingTime;
@@ -37,8 +36,7 @@ public class BookingService {
         return createBookingDates(bookingTimeMillis, bookingStartTime, bookingEndTime);
     }
 
-    public void bookingSave(String staffId, String millis) {
-        User user = OAuthInfo.get();
+    public void bookingSave(String staffId, String millis, User user) {
         Member member = new Eql().selectFirst("queryMemberByUserId").params(user.getUserId()).returnType(Member.class).execute();
         Staff staff = new Eql().selectFirst("queryStaffByStaffId").params(staffId).returnType(Staff.class).execute();
 

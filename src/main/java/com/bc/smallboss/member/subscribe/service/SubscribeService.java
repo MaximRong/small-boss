@@ -33,7 +33,7 @@ public class SubscribeService {
         System.out.println(now.isAfter(131306745034909696l));
     }
 
-    public void subscribeCancel(String subscribeId) {
-        new Eql().selectFirst("subscribeCancel").params(subscribeId).execute();
+    public void subscribeCancel(String subscribeId, User user) {
+        new Eql().selectFirst("subscribeCancel").params(subscribeId, user.getUserId()).execute();
     }
 }

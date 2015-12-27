@@ -13,14 +13,16 @@
 <body>
 <div class="main">
     <div class="often-funs clearfix">
+        <a href="${ctx}/merchant/staff-subscribe/show">
         <div class="fun">
             <div class="content">
                 <div class="content-inner">
-                    <div class="icon"><i class="iconfont">&#xe60f;</i><a></a></div>
+                    <div class="icon"><i class="iconfont">&#xe60f;</i><a class="new"></a></div>
                     <div class="text"><span>预约</span></div>
                 </div>
             </div>
         </div>
+        </a>
 
         <div class="fun">
             <div class="content">
@@ -43,13 +45,14 @@
         <div class="fun">
             <div class="content">
                 <div class="content-inner">
-                    <div class="icon"><i class="iconfont">&#xe610;</i><a></a></div>
-                    <div class="text"><span>作品</span></div>
+                    <div class="icon"><i class="iconfont">&#xe618;</i><a class="new"></a></div>
+                    <div class="text"><span>密码</span></div>
                 </div>
             </div>
         </div>
     </div>
 
+    <#if user.type == 0>
     <div class="less-funs clearfix">
         <a href="${ctx}/merchant/merchant/edit">
         <div class="fun border-rm">
@@ -87,6 +90,7 @@
             </div>
         </div>
     </div>
+    </#if>
 
     <div class="staff-panel clearfix">
         <div class="my-works">
@@ -121,7 +125,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="booking-operate" <#if subscribe.isPassed || subscribe.state == "0">style="display: none;" </#if>>
+                    <div class="booking-operate cancel-booking-fake"  data-val="${subscribe.subscribeId}"
+                         <#if subscribe.isPassed || subscribe.state == "0">style="display: none;" </#if>>
                         <span>取消预约</span>
                     </div>
                 </div>
@@ -142,35 +147,26 @@
             </div>
 
             <div class="booking-times">
-                <div class="booking-inner">
-                    <div class="booking-item clearfix">
-                        <div class="booking-time">
-                            <div class="start-time">9:00 开始</div>
-                            <div class="end-time">10:00结束</div>
-                        </div>
+                <#list subscribes as subscribe>
+                    <div class="booking-inner" data-date="${subscribe.dayOfYear}" <#if !subscribe.isToday>style="display: none;" </#if>>
+                        <div class="booking-item clearfix">
+                            <div class="booking-time">
+                                <div class="start-time">${subscribe.subscribeTime?string("HH")}:00开始</div>
+                                <div class="end-time">${subscribe.endTime?string("HH")}:00结束</div>
+                            </div>
 
-                        <div class="booking-member">
-                            <span>陈晓波</span>
-                            <a class="iconfont" href="tel:18541218792">&#xe604;</a>
+                            <div class="booking-member">
+                                <span>${subscribe.memberName}</span>
+                                <a class="iconfont" href="tel:${subscribe.memberMobile}">&#xe604;</a>
+                            </div>
+                            <#if !subscribe.isPassed && subscribe.state == "1">
+                            <a class="booking-state cancel-booking-fake" data-val="${subscribe.subscribeId}">取消预约</a>
+                            <#else>
+                            <a class="cancel-state"><#if subscribe.isPassed>已结束<#else>已取消</#if></a>
+                            </#if>
                         </div>
-                        <a class="booking-state">取消预约</a>
                     </div>
-                </div>
-
-                <div class="booking-inner">
-                    <div class="booking-item clearfix">
-                        <div class="booking-time">
-                            <div class="start-time">9:00 开始</div>
-                            <div class="end-time">10:00结束</div>
-                        </div>
-
-                        <div class="booking-member">
-                            <span>陈晓波</span>
-                            <a class="iconfont" href="tel:18541218792">&#xe604;</a>
-                        </div>
-                        <a class="booking-state">取消预约</a>
-                    </div>
-                </div>
+                </#list>
             </div>
         </div>
     </div>

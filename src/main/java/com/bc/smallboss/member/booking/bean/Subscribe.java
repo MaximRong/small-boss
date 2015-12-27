@@ -4,29 +4,29 @@ import java.util.Date;
 
 public class Subscribe {
 
-    private long subscribeId;
+    protected long subscribeId;
 
-    private long staffId;
+    protected long staffId;
 
-    private String staffName;
+    protected String staffName;
 
-    private String staffMobile;
+    protected String staffMobile;
 
-    private Date subscribeTime;
+    protected Date subscribeTime;
 
-    private long memberId;
+    protected long memberId;
 
-    private String memberName;
+    protected String memberName;
 
-    private String memberMobile;
+    protected String memberMobile;
 
-    private long millis;
+    protected long millis;
 
-    private String state;
+    protected String state;
 
-    private boolean isPassed;
+    protected boolean isPassed;
 
-    private String stateDesc;
+    protected String stateDesc;
 
     public boolean getIsPassed() {
         return isPassed;

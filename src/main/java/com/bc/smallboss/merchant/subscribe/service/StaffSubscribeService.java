@@ -1,7 +1,6 @@
-package com.bc.smallboss.merchant.index.service;
+package com.bc.smallboss.merchant.subscribe.service;
 
 import com.bc.smallboss.base.utils.OAuthInfo;
-import com.bc.smallboss.common.bean.User;
 import com.bc.smallboss.member.booking.bean.BookingDate;
 import com.bc.smallboss.merchant.index.bean.StaffSubscribe;
 import com.bc.smallboss.merchant.staff.bean.Staff;
@@ -13,12 +12,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class IndexService {
+public class StaffSubscribeService {
 
-
-    public List<StaffSubscribe> querySubscribes(User user) {
-        Staff staff = new Eql().selectFirst("queryStaffByUserId").returnType(Staff.class).params(user.getUserId()).execute();
-        List<StaffSubscribe> subscribes = new Eql().select("querySubscribes").params(staff.getStaffId()).returnType(StaffSubscribe.class).execute();
+    public List<StaffSubscribe> queryStaffSubscribes(String staffId) {
+        List<StaffSubscribe> subscribes = new Eql().select("querySubscribes").params(staffId).returnType(StaffSubscribe.class).execute();
         for (StaffSubscribe subscribe : subscribes) {
             long millis = subscribe.getMillis();
             DateTime now = DateTime.now();
@@ -30,7 +27,12 @@ public class IndexService {
             subscribe.setIsToday(dayOfYear == now.getDayOfYear()); // 是否今天
             subscribe.setEndTime(subscribeDate.plusHours(1).toDate());
         }
-        return subscribes;
+
+    return subscribes;
+    }
+
+    public List<Staff> queryStaffs() {
+        return new Eql().select("queryStaffs").params(OAuthInfo.get()).returnType(Staff.class).execute();
     }
 
     public List<BookingDate> createBookingDates() {

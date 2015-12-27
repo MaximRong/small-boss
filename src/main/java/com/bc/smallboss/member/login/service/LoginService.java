@@ -12,7 +12,7 @@ import java.util.Map;
 public class LoginService {
 
     public Map login(String mobile, String password, String type, HttpSession session) {
-        User user = new Eql().selectFirst("queryUserByMobile").params(mobile, type).returnType(User.class).execute();
+        User user = new Eql().selectFirst("queryUserByMobile").params(RMap.asMap("mobile", mobile, "type", type)).returnType(User.class).execute();
         if(null == user) {
             return RMap.asMap("result", "null");
         }
