@@ -14,6 +14,8 @@ public class Member {
 
     private String password;
 
+    private String photo;
+
     public long getUserId() {
         return userId;
     }
@@ -46,6 +48,13 @@ public class Member {
         this.name = name;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 
     public int getSex() {
         return sex;

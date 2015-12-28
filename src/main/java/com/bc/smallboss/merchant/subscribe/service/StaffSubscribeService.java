@@ -1,6 +1,7 @@
 package com.bc.smallboss.merchant.subscribe.service;
 
 import com.bc.smallboss.base.utils.OAuthInfo;
+import com.bc.smallboss.common.bean.User;
 import com.bc.smallboss.member.booking.bean.BookingDate;
 import com.bc.smallboss.merchant.index.bean.StaffSubscribe;
 import com.bc.smallboss.merchant.staff.bean.Staff;
@@ -32,7 +33,8 @@ public class StaffSubscribeService {
     }
 
     public List<Staff> queryStaffs() {
-        return new Eql().select("queryStaffs").params(OAuthInfo.get()).returnType(Staff.class).execute();
+        User user = OAuthInfo.get();
+        return new Eql().select("queryStaffs").params(user).returnType(Staff.class).execute();
     }
 
     public List<BookingDate> createBookingDates() {

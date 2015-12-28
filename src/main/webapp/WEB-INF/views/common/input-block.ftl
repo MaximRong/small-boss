@@ -111,6 +111,7 @@
             $error.removeClass("error-pulse");
         });
         $error.find("span").text(errorStr);
+        setTimeout("$('.error').hide()", 4000)
     };
 
 

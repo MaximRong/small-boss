@@ -4,6 +4,7 @@ import com.bc.smallboss.base.utils.Config;
 import com.bc.smallboss.base.utils.OAuthInfo;
 import com.bc.smallboss.common.bean.User;
 import com.bc.smallboss.common.service.UserService;
+import com.github.bingoohuang.utils.net.Http;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -30,6 +31,7 @@ public class OAuthInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        if (Http.isAjax(request))  return;
         modelAndView.addObject("user", OAuthInfo.get());
     }
 }

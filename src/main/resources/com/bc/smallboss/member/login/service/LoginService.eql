@@ -4,6 +4,8 @@ SELECT USER_ID
 , MOBILE
 , NAME
 , SEX
+, TYPE
+, OPEN_ID
 FROM USER
 WHERE MOBILE = #mobile#
 --if type == "C"

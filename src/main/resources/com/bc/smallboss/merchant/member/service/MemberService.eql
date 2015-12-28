@@ -1,3 +1,15 @@
+-- [queryMembers]
+SELECT MEMBER_ID
+, USER_ID
+, MOBILE
+, NAME
+, SEX
+, PHOTO
+, VERIFY
+FROM MEMBER
+WHERE 1 = 1
+AND VERIFY = '1';
+
 -- [insertUser]
 INSERT USER
 (USER_ID,       PASSWD,         MOBILE,       NAME,
@@ -13,7 +25,7 @@ INSERT INTO MEMBER
  VERIFY,          USER_ID)
 VALUES
 (#memberId#,      #mobile#,     #name#,     #sex#,
- '0',             #userId#);
+ '1',             #userId#);
 
 -- [mobileExist]
 SELECT COUNT(1)

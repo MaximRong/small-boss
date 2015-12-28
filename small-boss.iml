@@ -64,5 +64,6 @@
     <orderEntry type="library" name="Maven: com.github.bingoohuang:idworker-client:0.0.6" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.38" level="project" />
     <orderEntry type="library" name="Maven: joda-time:joda-time:2.7" level="project" />
+    <orderEntry type="module" module-name="java-utils" />
   </component>
 </module>

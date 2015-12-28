@@ -1,4 +1,4 @@
-package com.bc.smallboss.member.register.service;
+package com.bc.smallboss.merchant.member.service;
 
 import com.bc.smallboss.base.utils.RMap;
 import com.bc.smallboss.common.bean.User;
@@ -9,12 +9,17 @@ import org.n3r.eql.util.Closes;
 import org.n3r.idworker.Id;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
-public class RegisterService {
+public class MemberService {
 
-    public Map register(Member member) {
+    public List<Member> queryMembers() {
+        return new Eql().select("queryMembers").returnType(Member.class).execute();
+    }
+
+    public Map addMember(Member member) {
         if(mobileExist(member)) {
             return RMap.asMap("result", "error", "msg", "电话号码已经存在");
         }
@@ -33,7 +38,7 @@ public class RegisterService {
             tran.commit();
         } catch (Exception ex) {
             tran.rollback();
-            throw new RuntimeException("注册会员失败", ex);
+            throw new RuntimeException("添加会员失败", ex);
         } finally {
             Closes.closeQuietly(tran);
         }

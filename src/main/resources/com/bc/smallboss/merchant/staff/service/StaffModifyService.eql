@@ -1,0 +1,47 @@
+-- [queryStaffByUserId]
+SELECT STAFF_ID
+, USER_ID
+, NAME
+, SEX
+, PHOTO
+, TAG1
+, TAG2
+, TAG3
+, MOBILE
+, BRIEF "desc"
+FROM STAFF
+WHERE USER_ID = ##;
+
+-- [queryStaffByStaffId]
+SELECT STAFF_ID
+, USER_ID
+, NAME
+, SEX
+, PHOTO
+, TAG1
+, TAG2
+, TAG3
+, MOBILE
+, BRIEF
+FROM STAFF
+WHERE STAFF_ID = ##;
+
+-- [modifyStaff]
+UPDATE STAFF
+SET NAME = #name#
+, SEX = #sex#
+, TAG1 = #tag1#
+, TAG2 = #tag2#
+, TAG3 = #tag3#
+, BRIEF = #desc#
+WHERE STAFF_ID = #staffId#;
+
+UPDATE USER
+SET NAME = #name#
+, SEX = #sex#
+WHERE USER_ID = #userId#;
+
+-- [mobileExist]
+SELECT COUNT(1)
+FROM USER
+WHERE MOBILE = ##;

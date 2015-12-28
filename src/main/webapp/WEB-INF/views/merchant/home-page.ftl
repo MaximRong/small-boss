@@ -24,6 +24,7 @@
         </div>
         </a>
 
+        <a href="${ctx}/merchant/member/show">
         <div class="fun">
             <div class="content">
                 <div class="content-inner">
@@ -32,7 +33,9 @@
                 </div>
             </div>
         </div>
+        </a>
 
+        <a href="${ctx}/merchant/staff/modify-show">
         <div class="fun">
             <div class="content">
                 <div class="content-inner">
@@ -41,6 +44,7 @@
                 </div>
             </div>
         </div>
+        </a>
 
         <div class="fun">
             <div class="content">
