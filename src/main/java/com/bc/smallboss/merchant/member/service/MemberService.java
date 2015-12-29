@@ -2,7 +2,9 @@ package com.bc.smallboss.merchant.member.service;
 
 import com.bc.smallboss.base.utils.RMap;
 import com.bc.smallboss.common.bean.User;
+import com.bc.smallboss.member.booking.bean.Subscribe;
 import com.bc.smallboss.member.register.bean.Member;
+import org.joda.time.DateTime;
 import org.n3r.eql.Eql;
 import org.n3r.eql.EqlTran;
 import org.n3r.eql.util.Closes;
@@ -59,5 +61,25 @@ public class MemberService {
         user.setSex(member.getSex());
         user.setUserId(Id.next());
         return user;
+    }
+
+    public Member queryMember(String memberId) {
+        return new Eql().selectFirst("queryMember").params(memberId).returnType(Member.class).execute();
+    }
+
+    public List<Subscribe> querySubscibes(String memberId) {
+        List<Subscribe> subscribes = new Eql().select("querySubscribes").params(memberId).returnType(Subscribe.class).execute();
+        for (Subscribe subscribe : subscribes) {
+            long millis = subscribe.getMillis();
+            DateTime now = DateTime.now();
+            boolean after = now.isAfter(millis);
+            subscribe.setIsPassed(after); // 131306745034909696
+        }
+
+        return subscribes;
+    }
+
+    public void deleteMember(String memberId) {
+        new Eql().update("deleteMember").params(memberId).execute();
     }
 }

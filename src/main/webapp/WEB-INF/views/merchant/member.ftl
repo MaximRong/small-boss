@@ -29,6 +29,7 @@
     <div class="members">
         <ul class="members-inner">
             <#list members as member>
+            <a href="${e.ctx()}/merchant/member/detail/${member.memberId}">
             <li class="member-item clearfix">
                 <div class="content">
                     <div class="member-photo">
@@ -50,6 +51,7 @@
                     <a class="iconfont" href="tel:${member.mobile}">&#xe604;</a>
                 </div>
             </li>
+            </a>
             </#list>
         </ul>
     </div>
