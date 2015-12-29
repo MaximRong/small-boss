@@ -46,14 +46,16 @@
         </div>
         </a>
 
+        <a href="${ctx}/merchant/change-password/show">
         <div class="fun">
             <div class="content">
                 <div class="content-inner">
-                    <div class="icon"><i class="iconfont">&#xe618;</i><a class="new"></a></div>
+                    <div class="icon"><i class="iconfont">&#xe618;</i></div>
                     <div class="text"><span>密码</span></div>
                 </div>
             </div>
         </div>
+        </a>
     </div>
 
     <#if user.type == 0>
