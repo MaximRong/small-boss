@@ -59,7 +59,7 @@ FROM STAFF
 WHERE STAFF_ID = ##;
 
 -- [insertSubscribe]
-INSERT SUBSCRIBE
+INSERT INTO SUBSCRIBE
 (SUBSCRIBE_ID,        SUBSCRIBE_TIME,       STAFF_ID,
  STAFF_NAME,          STAFF_MOBILE,         STATE,
  MEMBER_ID,           MEMBER_NAME,          MEMBER_MOBILE,
@@ -69,3 +69,7 @@ VALUES
  #staffName#,         #staffMobile#,        '1',
  #memberId#,          #memberName#,         #memberMobile#,
  #millis#,            now());
+
+-- [insertBookingMessage]
+INSERT INTO USER_MESSAGE
+VALUES (##, '1');

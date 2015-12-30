@@ -30,6 +30,7 @@ public class RegisterService {
             tran.start();
             new Eql().insert("insertUser").useTran(tran).params(user).execute();
             new Eql().insert("insertMember").useTran(tran).params(member).execute();
+            new Eql().insert("insertStaffMessage").useTran(tran).params(member).execute();
             tran.commit();
         } catch (Exception ex) {
             tran.rollback();

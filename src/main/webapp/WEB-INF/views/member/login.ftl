@@ -23,7 +23,7 @@
 
     <div class="login-operate">
         <div class="login-btn">登陆</div>
-        <a>我是会员，但未登记</a>
+        <a href="${e.ctx()}/member/register/show">我是会员，但未登记</a>
     </div>
 
     <#include "../common/input-block.ftl">

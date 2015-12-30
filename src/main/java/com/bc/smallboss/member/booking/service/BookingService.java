@@ -53,6 +53,7 @@ public class BookingService {
         subscribe.setMillis(subscribeTime.getMillis());
 
         new Eql().insert("insertSubscribe").params(subscribe).execute();
+        new Eql().insert("insertBookingMessage").params(staff.getUserId()).execute();
     }
 
     private List<BookingDate> createBookingDates(List<Long> bookingTimeMillis, int bookingStartTime, int bookingEndTime) {

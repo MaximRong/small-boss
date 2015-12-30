@@ -34,6 +34,7 @@ public class StaffSubscribeService {
 
     public List<Staff> queryStaffs() {
         User user = OAuthInfo.get();
+        new Eql().delete("deleteUserMessage").params(user.getUserId()).execute();
         return new Eql().select("queryStaffs").params(user).returnType(Staff.class).execute();
     }
 

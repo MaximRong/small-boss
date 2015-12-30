@@ -58,4 +58,28 @@ public class MemberController {
         return RMap.asMap("result", "ok");
     }
 
+    @RequestMapping(value = "/verify")
+    public ModelAndView verify() {
+        ModelAndView mav = new ModelAndView();
+        List<Member> members = service.queryNeedToVerifyMembers();
+        mav.addObject("members", members);
+        mav.setViewName("merchant/member-verify");
+        return mav;
+    }
+
+    @RequestMapping(value = "/pass")
+    @ResponseBody
+    public Map passMember(@RequestParam String memberId) {
+        service.passMember(memberId);
+        return RMap.asMap("result", "ok");
+    }
+
+    @RequestMapping(value = "/refuse")
+    @ResponseBody
+    public Map refuseMember(@RequestParam String memberId) {
+        service.refuseMember(memberId);
+        return RMap.asMap("result", "ok");
+    }
+
+
 }

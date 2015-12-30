@@ -15,6 +15,12 @@ VALUES
 (#memberId#,      #mobile#,     #name#,     #sex#,
  '0',             #userId#);
 
+-- [insertStaffMessage]
+INSERT INTO USER_MESSAGE
+(USER_ID,        MESSAGE_TYPE)
+VALUES
+((SELECT USER_ID FROM  USER u WHERE u.TYPE = '0'), '0')
+
 -- [mobileExist]
 SELECT COUNT(1)
 FROM USER

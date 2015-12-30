@@ -1,5 +1,6 @@
 package com.bc.smallboss.merchant.member.service;
 
+import com.bc.smallboss.base.utils.OAuthInfo;
 import com.bc.smallboss.base.utils.RMap;
 import com.bc.smallboss.common.bean.User;
 import com.bc.smallboss.member.booking.bean.Subscribe;
@@ -81,5 +82,33 @@ public class MemberService {
 
     public void deleteMember(String memberId) {
         new Eql().update("deleteMember").params(memberId).execute();
+    }
+
+    public List<Member> queryNeedToVerifyMembers() {
+        new Eql().select("deleteUserMessage").params(OAuthInfo.get().getUserId()).execute();
+        return new Eql().select("queryNeedToVerifyMembers").returnType(Member.class).execute();
+    }
+
+    public void passMember(String memberId) {
+        new Eql().selectFirst("passMember").params(memberId).execute();
+    }
+
+    public void refuseMember(String memberId) {
+        Long userId = new Eql().selectFirst("queryUserIdByMemberId").params(memberId).execute();
+
+        EqlTran tran = new Eql().newTran();
+        try {
+            tran.start();
+            new Eql().selectFirst("deleteMember").useTran(tran).params(memberId).execute();
+            new Eql().selectFirst("deleteUser").useTran(tran).params(userId).execute();
+            tran.commit();
+        } catch (Exception ex) {
+            tran.rollback();
+            throw new RuntimeException("拒绝审核会员失败", ex);
+        } finally {
+            Closes.closeQuietly(tran);
+        }
+
+
     }
 }

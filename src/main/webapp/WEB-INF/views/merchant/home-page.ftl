@@ -17,7 +17,7 @@
         <div class="fun">
             <div class="content">
                 <div class="content-inner">
-                    <div class="icon"><i class="iconfont">&#xe60f;</i><a class="new"></a></div>
+                    <div class="icon"><i class="iconfont">&#xe60f;</i><#if e.msg("1")><div class="new"></div></#if></div>
                     <div class="text"><span>预约</span></div>
                 </div>
             </div>
@@ -82,12 +82,16 @@
         </div>
         </a>
 
+        <a href="${ctx}/merchant/member/verify">
         <div class="fun border-rm">
             <div class="content">
                 <div class="content-inner">
+                    <div class="icon"><i class="iconfont">&#xe60a;</i><#if e.msg("0")><div class="new"></div></#if></div>
+                    <div class="text"><span>新增会员</span></div>
                 </div>
             </div>
         </div>
+        </a>
 
         <div class="fun border-m">
             <div class="content">
