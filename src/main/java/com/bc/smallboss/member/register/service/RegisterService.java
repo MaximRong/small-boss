@@ -9,21 +9,20 @@ import org.n3r.eql.util.Closes;
 import org.n3r.idworker.Id;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Service
 public class RegisterService {
 
-    public Map register(Member member) {
+    public Map register(Member member, HttpSession session) {
         if(mobileExist(member)) {
             return RMap.asMap("result", "error", "msg", "电话号码已经存在");
         }
 
-        User user = createUser(member);
-
-        member.setUserId(user.getUserId());
         member.setMemberId(Id.next());
-
+        User user = createUser(member);
+        member.setUserId(user.getUserId());
 
         EqlTran tran = new Eql().newTran();
         try {
@@ -38,6 +37,7 @@ public class RegisterService {
         } finally {
             Closes.closeQuietly(tran);
         }
+        session.setAttribute("user", user);
         return RMap.asMap("result", "ok");
     }
 
@@ -54,6 +54,7 @@ public class RegisterService {
         user.setName(member.getName());
         user.setSex(member.getSex());
         user.setUserId(Id.next());
+        user.setMemberId(member.getMemberId());
         return user;
     }
 }

@@ -16,7 +16,7 @@
             <i class="iconfont">&#xe607;</i>
         </div>
     </div>-->
-
+    <#if user.type == 0>
     <div class="member-operate">
         <a href="${e.ctx()}/merchant/member/add-show">
         <div class="add-member">
@@ -25,6 +25,7 @@
         </div>
         </a>
     </div>
+    </#if>
 
     <div class="members">
         <ul class="members-inner">

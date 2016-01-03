@@ -93,7 +93,7 @@ WHERE MEMBER_ID = ##;
 -- [queryUserIdByMemberId]
 SELECT USER_ID
 FROM MEMBER
-WHERE WHERE MEMBER_ID = ##
+WHERE MEMBER_ID = ##
 
 -- [refuseMember]
 DELETE FROM MEMBER

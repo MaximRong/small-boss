@@ -19,6 +19,13 @@ public class LoginService {
         if(!password.equals(user.getPasswd())) {
             return RMap.asMap("result", "notRight");
         }
+        if(2 == user.getType()) { // 当是会员
+            long memberId = new Eql().selectFirst("queryMemberIdByUserId").params(user.getUserId()).execute();
+            user.setMemberId(memberId);
+        } else { // 商户侧, 馆主或美甲师
+            long staffId = new Eql().selectFirst("queryStaffIdByUserId").params(user.getUserId()).execute();
+            user.setStaffId(staffId);
+        }
         session.setAttribute("user", user);
 //        OAuthInfo.set(user);
         return RMap.asMap("result", "ok");

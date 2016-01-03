@@ -1,5 +1,7 @@
 package com.bc.smallboss.member.booking.service;
 
+import com.bc.smallboss.base.utils.OAuthInfo;
+import com.bc.smallboss.base.utils.RMap;
 import com.bc.smallboss.common.bean.User;
 import com.bc.smallboss.member.booking.bean.BookingDate;
 import com.bc.smallboss.member.booking.bean.BookingTime;
@@ -36,10 +38,32 @@ public class BookingService {
         return createBookingDates(bookingTimeMillis, bookingStartTime, bookingEndTime);
     }
 
-    public void bookingSave(String staffId, String millis, User user) {
-        Member member = new Eql().selectFirst("queryMemberByUserId").params(user.getUserId()).returnType(Member.class).execute();
-        Staff staff = new Eql().selectFirst("queryStaffByStaffId").params(staffId).returnType(Staff.class).execute();
+    public Map bookingSave(String staffId, String millis) {
+        User user = OAuthInfo.get();
+        if(null == user) {
+            return RMap.asMap("result", "ex", "msg", "您还不是会员，不可预约哦~");
+        }
 
+        Member member = new Eql().selectFirst("queryMemberByUserId").params(user.getUserId()).returnType(Member.class).execute();
+        if("0".equals(member.getVerify())) {
+            return RMap.asMap("result", "ex", "msg", "您还未审核通过，不可预约哦~");
+        }
+
+        Map ret ;
+        try {
+            Staff staff = new Eql().selectFirst("queryStaffByStaffId").params(staffId).returnType(Staff.class).execute();
+            Subscribe subscribe = createSubscribe(millis, member, staff);
+            new Eql().insert("insertSubscribe").params(subscribe).execute();
+            new Eql().insert("insertBookingMessage").params(staff.getUserId()).execute();
+            ret = RMap.asMap("result", "ok");
+        } catch (Exception e) {
+            ret = RMap.asMap("result", "error");
+        }
+
+        return ret;
+    }
+
+    private Subscribe createSubscribe(String millis, Member member, Staff staff) {
         Subscribe subscribe = new Subscribe();
         subscribe.setSubscribeId(Id.next());
         subscribe.setMemberId(member.getMemberId());
@@ -51,9 +75,7 @@ public class BookingService {
         DateTime subscribeTime = new DateTime(Long.valueOf(millis));
         subscribe.setSubscribeTime(subscribeTime.toDate());
         subscribe.setMillis(subscribeTime.getMillis());
-
-        new Eql().insert("insertSubscribe").params(subscribe).execute();
-        new Eql().insert("insertBookingMessage").params(staff.getUserId()).execute();
+        return subscribe;
     }
 
     private List<BookingDate> createBookingDates(List<Long> bookingTimeMillis, int bookingStartTime, int bookingEndTime) {

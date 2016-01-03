@@ -7,7 +7,7 @@
     <script src="${e.res("/biz/member/js/MemberLogin.js")}" charset="UTF-8"></script>
 </head>
 <body>
-<div class="main bounceIn">
+<div class="main">
     <div class="login">
         <div class="inner">
             <div class="item">

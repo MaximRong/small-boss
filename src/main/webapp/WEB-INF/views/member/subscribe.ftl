@@ -17,6 +17,7 @@
         <div class="person-right">
             <div class="person-name">
                 <span>${member.name}</span>
+                <#if member.verify == "0"><i>(审核中)</i></#if>
             </div>
         </div>
     </div>
@@ -66,82 +67,12 @@
                     </div>
                 </div>
             </#list>
-<#--
-            <div class="booking-item unused">
-                <div class="booking-info clearfix">
-                    <div class="booking-left">
-                        <div class="staff-name">
-                            <span class="info">美甲师:</span>
-                            <span class="content">莫小北</span>
-                        </div>
-
-                        <div class="booking-time">
-                            <span class="info">预约时间:</span>
-                            <span class="content">2015年11月20号 9点</span>
-                        </div>
-
-                        <div class="booking-state">
-                            <span class="info">状态:</span>
-                            <span class="content">未消费</span>
-                        </div>
-                    </div>
-                    <div class="booking-right">
-                        <p class="call-phone"><a class="iconfont" href="tel:18541218792">&#xe604;</a></p>
-                    </div>
-                </div>
-                <div class="booking-operate">
-                    <span>取消预约</span>
-                </div>
-            </div>
-
-            <div class="booking-item invalid">
-                <div class="booking-info clearfix">
-                    <div class="booking-left">
-                        <div class="staff-name">
-                            <span class="info">美甲师:</span>
-                            <span class="content">莫小北</span>
-                        </div>
-
-                        <div class="booking-time">
-                            <span class="info">预约时间:</span>
-                            <span class="content">2015年11月20号 9点</span>
-                        </div>
-
-                        <div class="booking-state">
-                            <span class="info">状态:</span>
-                            <span class="content">已消费</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="booking-operate">
-                    <span></span>
-                </div>
-            </div>
-
-            <div class="booking-item invalid">
-                <div class="booking-info clearfix">
-                    <div class="booking-left">
-                        <div class="staff-name">
-                            <span class="info">美甲师:</span>
-                            <span class="content">莫小北</span>
-                        </div>
-
-                        <div class="booking-time">
-                            <span class="info">预约时间:</span>
-                            <span class="content">2015年11月20号 9点</span>
-                        </div>
-
-                        <div class="booking-state">
-                            <span class="info">状态:</span>
-                            <span class="content">已取消</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="booking-operate">
-                    <span></span>
-                </div>
-            </div>-->
         </div>
+    </div>
+
+    <div class="menus clearfix">
+        <a href="${e.ctx()}/member/booking/show"><div class="unselected">美甲预约</div></a>
+        <div class="selected">我的预约</div>
     </div>
 </div>
 </body>

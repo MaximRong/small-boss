@@ -13,7 +13,7 @@
 <body>
 <div class="main">
     <div class="often-funs clearfix">
-        <a href="${ctx}/merchant/staff-subscribe/show">
+        <a href="${ctx}/merchant/staff-subscribe/show/${user.staffId}">
         <div class="fun">
             <div class="content">
                 <div class="content-inner">

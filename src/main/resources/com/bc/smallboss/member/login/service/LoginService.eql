@@ -13,3 +13,13 @@ AND TYPE = '2'
 --else
 AND TYPE IN ('0', '1')
 --end
+
+-- [queryMemberIdByUserId]
+SELECT MEMBER_ID
+FROM MEMBER
+WHERE USER_ID = ##
+
+-- [queryStaffIdByUserId]
+SELECT STAFF_ID
+FROM STAFF
+WHERE USER_ID = ##

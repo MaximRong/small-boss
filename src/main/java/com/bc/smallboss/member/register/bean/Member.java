@@ -16,6 +16,16 @@ public class Member {
 
     private String photo;
 
+    private String verify;
+
+    public String getVerify() {
+        return verify;
+    }
+
+    public void setVerify(String verify) {
+        this.verify = verify;
+    }
+
     public long getUserId() {
         return userId;
     }

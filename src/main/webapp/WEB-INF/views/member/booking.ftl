@@ -37,7 +37,7 @@
             </#list>
         </ul>
         <div class="staff-footer clearfix">
-            <a href="${e.ctx()}/member/staff/${staffs[0].staffId}"><div class="staff-link">美甲师介绍</div></a>
+            <div class="staff-link">请选择美甲师</div>
         </div>
     </div>
     <!-- replace-start -->
@@ -135,6 +135,11 @@
         </div>
 
         <div class="booking-btn">确认预约</div>
+    </div>
+
+    <div class="menus clearfix">
+        <div class="selected">美甲预约</div>
+        <a href="${e.ctx()}/member/subscribe/show"><div class="unselected">我的预约</div></a>
     </div>
 
     <#include "../common/input-block.ftl">

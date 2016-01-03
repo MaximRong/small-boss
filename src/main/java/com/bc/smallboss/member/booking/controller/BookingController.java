@@ -1,8 +1,6 @@
 package com.bc.smallboss.member.booking.controller;
 
 
-import com.bc.smallboss.base.utils.RMap;
-import com.bc.smallboss.common.bean.User;
 import com.bc.smallboss.member.booking.bean.BookingDate;
 import com.bc.smallboss.member.booking.service.BookingService;
 import com.bc.smallboss.merchant.merchant.bean.Merchant;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -40,17 +37,8 @@ public class BookingController {
     @RequestMapping(value = "/booking")
     @ResponseBody
     public Map bookingSave(@RequestParam(value = "staffId") String staffId,
-                                    @RequestParam(value = "millis") String millis,
-                           HttpSession session) {
-        Map ret ;
-        try {
-            service.bookingSave(staffId, millis, (User)session.getAttribute("user"));
-            ret = RMap.asMap("result", "ok");
-        } catch (Exception e) {
-            ret = RMap.asMap("result", "error");
-        }
-
-        return ret;
+                                    @RequestParam(value = "millis") String millis) {
+        return service.bookingSave(staffId, millis);
     }
 
     private ModelAndView getModelAndView(String staffId) {

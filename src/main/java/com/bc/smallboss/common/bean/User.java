@@ -4,6 +4,10 @@ public class User {
 
     private long userId;
 
+    private long memberId;
+
+    private long staffId;
+
     private String passwd;
 
     private String openId;
@@ -15,6 +19,22 @@ public class User {
     private int sex;
 
     private int type;
+
+    public long getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(long memberId) {
+        this.memberId = memberId;
+    }
+
+    public long getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(long staffId) {
+        this.staffId = staffId;
+    }
 
     public long getUserId() {
         return userId;
